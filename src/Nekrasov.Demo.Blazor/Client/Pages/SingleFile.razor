@@ -1,4 +1,6 @@
 ﻿@page "/files"
+@using Nekrasov.Demo.Dto.ViewModel
+@inject HttpClient Http
 
 <h1>Single file</h1>
 
@@ -6,14 +8,57 @@
 
 <InputFile OnChange="HandleSelection" />
 
-<br/>
+@if(_file == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <p class='@_file.Title.Class'><em>@_file.Title.Text</em></p>
+}
 
+@if (_file?.Movies != null && _file.Movies.Length > 0)
+{
+    <table class="table table-bordered table-sm">
+        <thead>
+        <tr>
+            <th>Number</th>
+            <th>Movie Name</th>
+            <th>Size, Mb</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var movie in _file.Movies)
+        {
+            <tr>
+                <td>@movie.Number</td>
+                <td>@movie.Name</td>
+                <td>@movie.SizeInMb</td>
+            </tr>
+        }
+        </tbody>
+    </table>
 
+}
 
-<p>@status</p>
 
 @code {
-    string status;
+
+    FileViewModel _file;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await Task.CompletedTask;
+
+        _file = new FileViewModel
+        {
+            Title = new Title{Text = "Это пробный текст", IsWarning=true},
+            Movies = new Movie[]
+            {
+                new Movie{Name="movie.mp4", Number="1", SizeInMb="123.45 Mb"}
+            }
+        };
+    }
 
     async Task HandleSelection(IFileListEntry[] files)
     {
@@ -23,7 +68,9 @@
             var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
 
-            status = $"Finished loading {file.Size} bytes from {file.Name}";
+@*            _status = $"Finished loading {file.Size} bytes from {file.Name}";
+*@            _file.Title.Text = $"Finished loading {file.Size} bytes from {file.Name}";
+            _file.Title.IsWarning = false;
         }
     }
 }

@@ -1,0 +1,29 @@
+﻿@page "/files"
+
+<h1>Single file</h1>
+
+<p>A single file uploads automatically on file selection</p>
+
+<InputFile OnChange="HandleSelection" />
+
+<br/>
+
+
+
+<p>@status</p>
+
+@code {
+    string status;
+
+    async Task HandleSelection(IFileListEntry[] files)
+    {
+        var file = files.FirstOrDefault();
+        if (file != null)
+        {
+            var ms = new MemoryStream();
+            await file.Data.CopyToAsync(ms);
+
+            status = $"Finished loading {file.Size} bytes from {file.Name}";
+        }
+    }
+}

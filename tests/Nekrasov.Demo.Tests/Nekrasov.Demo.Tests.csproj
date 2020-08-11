@@ -1,0 +1,48 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+
+    <IsPackable>false</IsPackable>
+
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="testData\badFile.docx" />
+    <None Remove="testData\badFile.pptx" />
+    <None Remove="testData\fileWithVideo.pptx" />
+    <None Remove="testData\test.pptx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="testData\badFile.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="testData\badFile.pptx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="testData\fileWithVideo.pptx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="NUnit" Version="3.12.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.7.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Nekrasov.Demo.Application\Nekrasov.Demo.Application.csproj" />
+    <ProjectReference Include="..\..\src\Nekrasov.Demo.Domain\Nekrasov.Demo.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Nekrasov.Demo.Storage\Nekrasov.Demo.Storage.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="testData\badFile.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

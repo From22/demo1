@@ -19,7 +19,8 @@ namespace Nekrasov.Demo.Blazor.Server.Data.Migrations
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.0.0-rc1.19455.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                //.HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                ;
 
             modelBuilder.Entity("Nekrasov.Demo.Blazor.Server.Models.ApplicationUser", b =>
                 {
@@ -200,7 +201,8 @@ namespace Nekrasov.Demo.Blazor.Server.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        //.HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        ;
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");
@@ -224,7 +226,8 @@ namespace Nekrasov.Demo.Blazor.Server.Data.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        //.HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                        ;
 
                     b.Property<string>("ClaimType")
                         .HasColumnType("nvarchar(max)");

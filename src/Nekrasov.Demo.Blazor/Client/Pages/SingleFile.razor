@@ -1,63 +1,75 @@
 ﻿@page "/files"
 @using Nekrasov.Demo.Dto.ViewModel
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
 @inject HttpClient Http
 
 <h1>Single file</h1>
 
 <p>A single file uploads automatically on file selection</p>
 
-<InputFile OnChange="HandleSelection" />
+<InputFile OnChange="HandleSelection" style="margin-bottom: 20px"/>
+<br/>
 
-@if(_file == null)
+@if (_files == null)
 {
     <p><em>Loading...</em></p>
 }
+else if (_files.Length == 0)
+{
+    <p><em>Please, upload .pptx file</em></p>
+}
 else
 {
-    <p class='@_file.Title.Class'><em>@_file.Title.Text</em></p>
-}
-
-@if (_file?.Movies != null && _file.Movies.Length > 0)
-{
-    <table class="table table-bordered table-sm">
-        <thead>
-        <tr>
-            <th>Number</th>
-            <th>Movie Name</th>
-            <th>Size, Mb</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach (var movie in _file.Movies)
+    @foreach (var file in _files)
+    {
+        <p class='@file.Title.Class'><em>@file.Title.Text</em></p>
+        @if (file?.Movies != null && file.Movies.Length > 0)
         {
-            <tr>
-                <td>@movie.Number</td>
-                <td>@movie.Name</td>
-                <td>@movie.SizeInMb</td>
-            </tr>
+            <table class="table table-bordered table-sm">
+                <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Movie Name</th>
+                    <th>Size, Mb</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var movie in file.Movies)
+                {
+                    <tr>
+                        <td>@movie.Number</td>
+                        <td>@movie.Name</td>
+                        <td>@movie.SizeInMb</td>
+                    </tr>
+                }
+                </tbody>
+            </table>
         }
-        </tbody>
-    </table>
-
+        else
+        {
+            <p><em>The file does not contain video</em></p>
+        }
+    }
 }
 
 
 @code {
 
-    FileViewModel _file;
+    private FileViewModel[] _files;
 
     protected override async Task OnInitializedAsync()
     {
-        await Task.CompletedTask;
-
-        _file = new FileViewModel
+        try
         {
-            Title = new Title{Text = "Это пробный текст", IsWarning=true},
-            Movies = new Movie[]
-            {
-                new Movie{Name="movie.mp4", Number="1", SizeInMb="123.45 Mb"}
-            }
-        };
+            _files = await Http.GetFromJsonAsync<FileViewModel[]>("Presentations");
+        }
+        catch (AccessTokenNotAvailableException exception)
+        {
+            exception.Redirect();
+       }
+
     }
 
     async Task HandleSelection(IFileListEntry[] files)
@@ -68,9 +80,9 @@ else
             var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
 
-@*            _status = $"Finished loading {file.Size} bytes from {file.Name}";
-*@            _file.Title.Text = $"Finished loading {file.Size} bytes from {file.Name}";
-            _file.Title.IsWarning = false;
+//           _status = $"Finished loading {file.Size} bytes from {file.Name}";
+//           _file.Title.Text = $"Finished loading {file.Size} bytes from {file.Name}";
+//            _file.Title.IsWarning = false;
         }
     }
 }

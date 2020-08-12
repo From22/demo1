@@ -5,10 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="10.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Nekrasov.Demo.Application\Nekrasov.Demo.Application.csproj" />
     <ProjectReference Include="..\..\Nekrasov.Demo.Dto\Nekrasov.Demo.Dto.csproj" />
     <ProjectReference Include="..\Client\Nekrasov.Demo.Web.Client.csproj" />
   </ItemGroup>

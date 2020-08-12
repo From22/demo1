@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Linq;
+using Nekrasov.Demo.Application;
 
 namespace Nekrasov.Demo.Web.Server
 {
@@ -21,7 +22,7 @@ namespace Nekrasov.Demo.Web.Server
         // For more information on how to configure your application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddApplicationServices();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }

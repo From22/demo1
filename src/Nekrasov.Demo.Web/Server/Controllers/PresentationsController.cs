@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 using Nekrasov.Demo.Dto.ViewModel;
 
-namespace Nekrasov.Demo.Blazor.Server.Controllers
+namespace Nekrasov.Demo.Web.Server.Controllers
 {
     [ApiController]
     [Route("[controller]")]

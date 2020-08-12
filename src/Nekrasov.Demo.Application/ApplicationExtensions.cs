@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Nekrasov.Demo.Application.Mapping;
 using Nekrasov.Demo.Application.Services;
@@ -10,10 +11,10 @@ namespace Nekrasov.Demo.Application
 {
     public static class ApplicationExtensions
     {
-        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services, IConfiguration configuration)
         {
             services
-                .AddStorageServices()
+                .AddStorageServices(configuration)
                 .AddDomainServices()
                 .AddScoped<IFileService, FileService>()
                 .AddAutoMapper(typeof(MappingProfile))

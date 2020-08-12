@@ -11,6 +11,7 @@
   <ItemGroup>
     <None Remove="testData\badFile.docx" />
     <None Remove="testData\badFile.pptx" />
+    <None Remove="testData\fileWithVideo - Copy.pptx" />
     <None Remove="testData\fileWithVideo.pptx" />
     <None Remove="testData\test.pptx" />
   </ItemGroup>
@@ -20,6 +21,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="testData\badFile.pptx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="testData\fileWithVideo - Copy.pptx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="testData\fileWithVideo.pptx">

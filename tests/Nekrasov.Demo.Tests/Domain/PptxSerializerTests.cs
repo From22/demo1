@@ -10,6 +10,7 @@ namespace Nekrasov.Demo.Tests.Domain
     [TestFixture]
     public class PptxSerializerTests
     {
+        [TestCase(@"testData\fileWithVideo - Copy.pptx", false)]
         [TestCase(@"testData\fileWithVideo.pptx", false)]
         [TestCase(@"testData\badFile.pptx", true)]
         [TestCase(@"testData\badFile.docx", true)]

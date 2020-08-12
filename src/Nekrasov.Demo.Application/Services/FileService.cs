@@ -9,6 +9,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.FileProviders;
+using File = System.IO.File;
 using StorageFile = Nekrasov.Demo.Storage.Model.File;
 
 namespace Nekrasov.Demo.Application.Services
@@ -17,6 +19,7 @@ namespace Nekrasov.Demo.Application.Services
     {
         private readonly IFileParser _parser;
         private readonly IFileRepository _repository;
+        private readonly IFileProvider _fileProvider;
 
         public FileService(IFileParser parser, IFileRepository repository)
         {
@@ -25,6 +28,11 @@ namespace Nekrasov.Demo.Application.Services
         }
         public async Task UploadAsync(byte[] content, string fileName)
         {
+            //await using (var m = File.Create("D:\\Repo\\Nekrasov.Demo.OpenXml\\src\\Nekrasov.Demo.Web\\Server\\bin\\Debug\\netcoreapp3.1\\1.pptx"))
+            //{
+            //    m.Write(content, 0, content.Length);
+            //}
+
             var storageFile = new StorageFile
             {
                 Id = Guid.NewGuid(),
@@ -94,7 +102,7 @@ namespace Nekrasov.Demo.Application.Services
                         {
                             Name = s.FullName,
                             Number = s.Number.ToString(),
-                            SizeInMb = $"{s.Size / 1024}"
+                            SizeInKb = $"{s.Size / 1024}"
                         }).OrderBy(m => m.Number).ToArray();
                     }
                     else

@@ -12,10 +12,20 @@ namespace Nekrasov.Demo.Domain.OpenXml.Pptx
         {
             await LoadBytesAsync(bytes);
 
-            var document = PresentationDocument.Open(Stream, true);
+            PresentationDocument document;
+            try
+            {
+                document = PresentationDocument.Open(Stream, true);
 
-            if (document.DocumentType != PresentationDocumentType.Presentation)
-                throw new Exception("The file is not .pptx");
+                if (document == null || document.DocumentType != PresentationDocumentType.Presentation)
+                {
+                    throw new Exception();
+                }
+            }
+            catch (Exception)
+            {
+                throw new FormatException("The file is not .pptx");
+            }
 
             return document;
 

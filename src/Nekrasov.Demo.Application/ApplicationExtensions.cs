@@ -1,7 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using Nekrasov.Demo.Application.Mapping;
+using Nekrasov.Demo.Application.Services;
+using Nekrasov.Demo.Application.Services.Abstraction;
 using Nekrasov.Demo.Domain;
+using Nekrasov.Demo.Storage;
 
 namespace Nekrasov.Demo.Application
 {
@@ -10,7 +13,9 @@ namespace Nekrasov.Demo.Application
         public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
             services
+                .AddStorageServices()
                 .AddDomainServices()
+                .AddScoped<IFileService, FileService>()
                 .AddAutoMapper(typeof(MappingProfile))
                 ;
             return services;

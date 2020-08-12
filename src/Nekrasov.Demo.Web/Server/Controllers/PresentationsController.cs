@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Nekrasov.Demo.Application.Services;
+using Nekrasov.Demo.Application.Services.Abstraction;
 using Nekrasov.Demo.Dto.ViewModel;
 
 namespace Nekrasov.Demo.Web.Server.Controllers
@@ -11,26 +15,27 @@ namespace Nekrasov.Demo.Web.Server.Controllers
     [Route("[controller]")]
     public class PresentationsController : ControllerBase
     {
-        public PresentationsController()
+        private readonly ILogger<PresentationsController> _logger;
+        private readonly IFileService _fileService;
+
+        public PresentationsController(ILogger<PresentationsController> logger, IFileService fileService)
         {
+            _logger = logger;
+            _fileService = fileService;
         }
 
         [HttpGet]
         public async Task<IEnumerable<FileViewModel>> GetList()
         {
-            await Task.CompletedTask;
-
-            var files = new FileViewModel[]
+            IEnumerable<FileViewModel> files = null;
+            try
             {
-                new FileViewModel
-                {
-                    Title = new Title{Text = "Это пробный текст", IsWarning=true},
-                    Movies = new Movie[]
-                    {
-                        new Movie{Name="movie.mp4", Number="1", SizeInMb="123.45 Mb"}
-                    }
-                }
-            };
+                files = await _fileService.GetListAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"{HttpContext.Request}");
+            }
 
             return files;
         }
@@ -44,16 +49,28 @@ namespace Nekrasov.Demo.Web.Server.Controllers
 
 
         [HttpPost]
-        public async Task Post()
+        public async Task<StatusCodeResult> Post()
         {
-            if (HttpContext.Request.Form.Files.Any())
+            try
             {
                 foreach (var file in HttpContext.Request.Form.Files.ToList())
                 {
-                    await using var stream = new MemoryStream();
+                    byte[] bytes;
+                    await using (var content = new MemoryStream())
+                    {
+                        await file.CopyToAsync(content);
+                        content.Seek(0, SeekOrigin.Begin);
+                        bytes = content.ToArray();
+                    }
 
-                    await file.CopyToAsync(stream);
+                    await _fileService.UploadAsync(bytes, file.FileName);
                 }
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, $"{HttpContext.Request}");
+                return BadRequest();
             }
         }
     }

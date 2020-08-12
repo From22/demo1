@@ -2,7 +2,7 @@
 
 namespace Nekrasov.Demo.Storage.Model
 {
-    public class VideoFIle
+    public class VideoFile
     {
         public Guid Id { get; set; }
         public Guid FileId { get; set; }

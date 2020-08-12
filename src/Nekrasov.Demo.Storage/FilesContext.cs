@@ -5,8 +5,12 @@ namespace Nekrasov.Demo.Storage
 {
     public class FilesContext : DbContext
     {
+        public FilesContext(DbContextOptions options):base(options)
+        {
+            
+        }
         public DbSet<File> Files { get; set; }
-        public DbSet<VideoFIle> VideoFiles { get; set; }
+        public DbSet<VideoFile> VideoFiles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -16,7 +20,7 @@ namespace Nekrasov.Demo.Storage
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<File>().ToTable("PptxFiles");
-            modelBuilder.Entity<VideoFIle>().ToTable("VideoFiles");
+            modelBuilder.Entity<VideoFile>().ToTable("VideoFiles");
         }
     }
 }

@@ -11,17 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekrasov.Demo.Application",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekrasov.Demo.Storage", "src\Nekrasov.Demo.Storage\Nekrasov.Demo.Storage.csproj", "{174B526F-3A36-459C-B46B-BDFB6911C378}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekrasov.Demo.Blazor.Server", "src\Nekrasov.Demo.Blazor\Server\Nekrasov.Demo.Blazor.Server.csproj", "{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekrasov.Demo.Blazor.Client", "src\Nekrasov.Demo.Blazor\Client\Nekrasov.Demo.Blazor.Client.csproj", "{A31BCD70-895F-4F01-97A9-5E2D3D737C20}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekrasov.Demo.Dto", "src\Nekrasov.Demo.Dto\Nekrasov.Demo.Dto.csproj", "{FABA0380-D1E9-40AF-AA67-88916F93FD50}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "blazor", "blazor", "{3F3E4CBA-AA04-4AD8-BC8F-91EFAA24DD57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nekrasov.Demo.Web.Server", "src\Nekrasov.Demo.Web\Server\Nekrasov.Demo.Web.Server.csproj", "{028DA856-EDA3-4C4F-AC2F-C1F98BA9FE50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekrasov.Demo.Web.Server", "src\Nekrasov.Demo.Web\Server\Nekrasov.Demo.Web.Server.csproj", "{028DA856-EDA3-4C4F-AC2F-C1F98BA9FE50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nekrasov.Demo.Web.Client", "src\Nekrasov.Demo.Web\Client\Nekrasov.Demo.Web.Client.csproj", "{68F32B80-8EC5-48B0-A8FF-D8387E84D88A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nekrasov.Demo.Web.Client", "src\Nekrasov.Demo.Web\Client\Nekrasov.Demo.Web.Client.csproj", "{68F32B80-8EC5-48B0-A8FF-D8387E84D88A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,22 +59,6 @@ Global
 		{174B526F-3A36-459C-B46B-BDFB6911C378}.Release|Any CPU.Build.0 = Release|Any CPU
 		{174B526F-3A36-459C-B46B-BDFB6911C378}.Release|x64.ActiveCfg = Release|Any CPU
 		{174B526F-3A36-459C-B46B-BDFB6911C378}.Release|x64.Build.0 = Release|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Debug|x64.Build.0 = Debug|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Release|x64.ActiveCfg = Release|Any CPU
-		{C1B5AE43-A4F5-4C94-86E1-27EA0D0F78B7}.Release|x64.Build.0 = Release|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Debug|x64.Build.0 = Debug|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Release|x64.ActiveCfg = Release|Any CPU
-		{A31BCD70-895F-4F01-97A9-5E2D3D737C20}.Release|x64.Build.0 = Release|Any CPU
 		{FABA0380-D1E9-40AF-AA67-88916F93FD50}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FABA0380-D1E9-40AF-AA67-88916F93FD50}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FABA0380-D1E9-40AF-AA67-88916F93FD50}.Debug|x64.ActiveCfg = Debug|Any CPU

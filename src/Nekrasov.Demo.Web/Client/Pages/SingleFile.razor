@@ -7,7 +7,8 @@
 
 <p>A single file uploads automatically on file selection</p>
 
-<InputFile OnChange="HandleSelection" style="margin-bottom: 20px"/>
+<InputFile OnChange="HandleSelection"/>
+<p style="margin-bottom: 20px">@_status</p>
 
 @if (_files == null)
 {
@@ -54,18 +55,32 @@ else
 @code {
 
     private FileViewModel[] _files;
+    private string _status;
 
     protected override async Task OnInitializedAsync()
     {
-        _files = await Http.GetFromJsonAsync<FileViewModel[]>("Presentations");    }
+        _files = await Http.GetFromJsonAsync<FileViewModel[]>("Presentations");
+    }
 
     async Task HandleSelection(IFileListEntry[] files)
     {
         var file = files.FirstOrDefault();
         if (file != null)
         {
-            var ms = new MemoryStream();
+            _files = null;
+
+            await using var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
+
+            var content = new MultipartFormDataContent
+        {{ new ByteArrayContent(ms.GetBuffer()), "\"upload\"", file.Name }};
+
+            var responce = await Http.PostAsync("Presentations", content);
+
+            _status = responce.IsSuccessStatusCode 
+                ? $"Finished loading {file.Size} bytes from {file.Name}" 
+                : "An error has occurred. try later";
         }
+        _files = await Http.GetFromJsonAsync<FileViewModel[]>("Presentations");
     }
 }

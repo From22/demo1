@@ -2,6 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
+using Nekrasov.Demo.Domain;
 using Nekrasov.Demo.Domain.OpenXml.Pptx;
 using NUnit.Framework;
 
@@ -10,6 +11,7 @@ namespace Nekrasov.Demo.Tests.Domain
     [TestFixture]
     public class PptxSerializerTests
     {
+        [TestCase(@"testData\fileWithVideo - Copy.pptx", false)]
         [TestCase(@"testData\fileWithVideo.pptx", false)]
         [TestCase(@"testData\badFile.pptx", true)]
         [TestCase(@"testData\badFile.docx", true)]
@@ -32,7 +34,7 @@ namespace Nekrasov.Demo.Tests.Domain
             }
             finally
             {
-                sut.Dispose();
+                await sut.DisposeAsync();
             }
 
             //Assert

@@ -9,6 +9,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.Extensions.FileProviders;
+using Nekrasov.Demo.Domain.Model;
+using File = System.IO.File;
 using StorageFile = Nekrasov.Demo.Storage.Model.File;
 
 namespace Nekrasov.Demo.Application.Services
@@ -25,6 +28,8 @@ namespace Nekrasov.Demo.Application.Services
         }
         public async Task UploadAsync(byte[] content, string fileName)
         {
+            //await _fileSystem.SaveToDiskAsync(content);
+
             var storageFile = new StorageFile
             {
                 Id = Guid.NewGuid(),
@@ -54,7 +59,7 @@ namespace Nekrasov.Demo.Application.Services
                 FileId = storageFile.Id,
                 Content = v.Content,
                 FullName = v.EntryPath,
-                Size = v.Content.Length,
+                Size = v.Content?.Length ?? 0,
                 Number = counter++
             }).ToList();
 
@@ -94,7 +99,7 @@ namespace Nekrasov.Demo.Application.Services
                         {
                             Name = s.FullName,
                             Number = s.Number.ToString(),
-                            SizeInMb = $"{s.Size / 1024}"
+                            SizeInKb = $"{s.Size / 1024}"
                         }).OrderBy(m => m.Number).ToArray();
                     }
                     else

@@ -14,7 +14,7 @@ namespace Nekrasov.Demo.Storage
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlite(@"Data Source=NekrasovDemo.db;");
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

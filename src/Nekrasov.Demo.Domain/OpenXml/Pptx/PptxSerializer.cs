@@ -2,15 +2,19 @@
 using DocumentFormat.OpenXml.Packaging;
 using System;
 using System.Threading.Tasks;
+using Nekrasov.Demo.Domain.Abstractions;
 
 namespace Nekrasov.Demo.Domain.OpenXml.Pptx
 {
     public class PptxSerializer : FileInMemory<PresentationDocument>
     {
+
         /// <inheritdoc />
         public override async Task<PresentationDocument> ProcessAsync(byte[] bytes)
         {
+
             await LoadBytesAsync(bytes);
+            //await Task.CompletedTask;
 
             PresentationDocument document;
             try

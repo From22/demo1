@@ -58,6 +58,7 @@ namespace Nekrasov.Demo.Web.Server.Controllers
                     byte[] bytes;
                     await using (var content = new MemoryStream())
                     {
+
                         await file.CopyToAsync(content);
                         content.Seek(0, SeekOrigin.Begin);
                         bytes = content.ToArray();

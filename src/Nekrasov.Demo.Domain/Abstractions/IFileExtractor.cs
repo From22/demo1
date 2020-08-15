@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Nekrasov.Demo.Domain.Model;
 
 namespace Nekrasov.Demo.Domain.Abstractions
 {

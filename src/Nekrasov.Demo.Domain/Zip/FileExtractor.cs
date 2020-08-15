@@ -4,6 +4,7 @@ using System.IO;
 using System.IO.Compression;
 using System.Threading.Tasks;
 using Nekrasov.Demo.Domain.Abstractions;
+using Nekrasov.Demo.Domain.Model;
 
 namespace Nekrasov.Demo.Domain.Zip
 {
@@ -16,19 +17,19 @@ namespace Nekrasov.Demo.Domain.Zip
             if (EntryPaths == null)
                 throw new NullReferenceException($"Before calling the method, you must set the '{nameof(EntryPaths)}' property");
 
-            await LoadBytesAsync(bytes);
-
-            var result = await ExtractFilesASync();
+            var result = await ExtractFilesASync(bytes);
 
             return result;
         }
 
-        private async Task<IReadOnlyCollection<ExtractedFile>> ExtractFilesASync()
+        private async Task<IReadOnlyCollection<ExtractedFile>> ExtractFilesASync(byte[] bytes)
         {
+            await LoadBytesAsync(bytes);
+
             var archive = new ZipArchive(Stream, ZipArchiveMode.Read);
 
             var result = new List<ExtractedFile>();
-
+            
             foreach (var entryPath in EntryPaths)
             {
                 var zipEntry = archive.GetEntry(entryPath);

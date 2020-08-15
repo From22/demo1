@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using DocumentFormat.OpenXml.Packaging;
 using Nekrasov.Demo.Domain.Abstractions;
@@ -31,9 +32,20 @@ namespace Nekrasov.Demo.Domain.OpenXml.Pptx
 
             foreach (var slide in pptx.PresentationPart.SlideParts)
             {
-                result.AddRange(slide.DataPartReferenceRelationships
+                var uriList = slide.DataPartReferenceRelationships
                     .Where(r => r.GetType() == RefType)
-                    .Select(r => r.Uri.ToString()));
+                    .Select(r => r.Uri.ToString()).ToList();
+
+                foreach (var uri in uriList)
+                {
+                    var entryPath = Regex.Replace(uri, "^/", string.Empty);
+                    if (result.Contains(entryPath))
+                    {
+                        continue;
+                    }
+
+                    result.Add(entryPath);
+                }
             }
 
             return result;

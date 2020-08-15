@@ -1,4 +1,4 @@
-﻿namespace Nekrasov.Demo.Domain
+﻿namespace Nekrasov.Demo.Domain.Model
 {
     public class ExtractedFile
     {

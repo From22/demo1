@@ -1,6 +1,7 @@
 ﻿@page "/singlefile"
 @using Nekrasov.Demo.Dto.ViewModel
 @using System.IO
+@using System.Net.Http.Headers
 @inject HttpClient Http
 
 <h1>Single file</h1>
@@ -72,15 +73,25 @@ else
             await using var ms = new MemoryStream();
             await file.Data.CopyToAsync(ms);
 
-            var content = new MultipartFormDataContent
-        {{ new ByteArrayContent(ms.GetBuffer()), "\"upload\"", file.Name }};
+            ms.Seek(0, SeekOrigin.Begin);
 
+            var byteContent =  new ByteArrayContent(ms.ToArray());
+
+            byteContent.Headers.ContentType = MediaTypeHeaderValue.Parse("multipart/form-data");
+
+            var content = new MultipartFormDataContent
+            {
+                {
+                    byteContent , "\"upload\"", file.Name
+                }
+            };
+            Http.DefaultRequestHeaders.Add("Accept", "application/json");
             var responce = await Http.PostAsync("Presentations", content);
 
             _status = responce.IsSuccessStatusCode 
                 ? $"Finished loading {file.Size} bytes from {file.Name}" 
                 : "An error has occurred. try later";
         }
-        _files = await Http.GetFromJsonAsync<FileViewModel[]>("Presentations");
+        await OnInitializedAsync();
     }
 }

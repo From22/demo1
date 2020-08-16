@@ -14,7 +14,7 @@ namespace Nekrasov.Demo.Web.Server
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    webBuilder.UseKestrel(k => k.AddServerHeader = false);
+                    //webBuilder.UseKestrel(k => k.AddServerHeader = false);
                     webBuilder.UseStartup<Startup>();
                 });
     }

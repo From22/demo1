@@ -1,6 +1,6 @@
 ﻿using Nekrasov.Demo.Application.Services.Abstraction;
-using Nekrasov.Demo.Domain;
 using Nekrasov.Demo.Domain.Abstractions;
+using Nekrasov.Demo.Domain.Model;
 using Nekrasov.Demo.Dto.ViewModel;
 using Nekrasov.Demo.Storage.Model;
 using Nekrasov.Demo.Storage.Repository;
@@ -8,10 +8,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using AutoMapper;
-using Microsoft.Extensions.FileProviders;
-using Nekrasov.Demo.Domain.Model;
-using File = System.IO.File;
 using StorageFile = Nekrasov.Demo.Storage.Model.File;
 
 namespace Nekrasov.Demo.Application.Services
@@ -67,7 +63,7 @@ namespace Nekrasov.Demo.Application.Services
 
         }
 
-        public async Task<IEnumerable<FileViewModel>> GetListAsync()
+        public async Task<IEnumerable<FileViewModel>> GetListAsync(string hostValue)
         {
             await Task.CompletedTask;
 
@@ -99,7 +95,8 @@ namespace Nekrasov.Demo.Application.Services
                         {
                             Name = s.FullName,
                             Number = s.Number.ToString(),
-                            SizeInKb = $"{s.Size / 1024}"
+                            SizeInKb = $"{s.Size / 1024}",
+                            Link = $"{hostValue}/presentations/content/{s.Id:N}"
                         }).OrderBy(m => m.Number).ToArray();
                     }
                     else

@@ -16,7 +16,8 @@ namespace Nekrasov.Demo.Application
             services
                 .AddStorageServices(configuration)
                 .AddDomainServices()
-                .AddScoped<IFileService, FileService>()
+                .AddTransient<IContentService, ContentService>()
+                .AddTransient<IFileService, FileService>()
                 .AddAutoMapper(typeof(MappingProfile))
                 ;
             return services;

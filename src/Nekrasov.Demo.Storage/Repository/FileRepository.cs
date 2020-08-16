@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Nekrasov.Demo.Storage.Model;
 
 namespace Nekrasov.Demo.Storage.Repository
@@ -11,6 +13,7 @@ namespace Nekrasov.Demo.Storage.Repository
         Task CreateFileAsync(File file, IReadOnlyCollection<VideoFile> videos);
         IEnumerable<File> ReadFiles();
         IEnumerable<VideoFile> ReadVideosByFileId(Guid fileId);
+        Task<(byte[] content, string contentType)> ReadVideoAsync(string videoId);
     }
 
     public class FileRepository : IFileRepository
@@ -41,6 +44,17 @@ namespace Nekrasov.Demo.Storage.Repository
         public IEnumerable<VideoFile> ReadVideosByFileId(Guid fileId)
         {
             return _dbContext.VideoFiles.Where(v=>v.FileId == fileId).ToList();
+        }
+
+        public async Task<(byte[], string)> ReadVideoAsync(string videoId)
+        {
+            var id = Guid.Parse(videoId);
+
+            var video = await _dbContext.VideoFiles.FirstAsync(v => v.Id == id);
+
+            var result = (video.Content, video.FullName);
+
+            return result;
         }
     }
 }

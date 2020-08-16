@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
-using System.IO;
+﻿using Nekrasov.Demo.Dto.ViewModel;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using Nekrasov.Demo.Dto.ViewModel;
 
 namespace Nekrasov.Demo.Application.Services.Abstraction
 {
@@ -9,6 +8,6 @@ namespace Nekrasov.Demo.Application.Services.Abstraction
     {
         Task UploadAsync(byte[] content, string fileName);
 
-        Task<IEnumerable<FileViewModel>> GetListAsync();
+        Task<IEnumerable<FileViewModel>> GetListAsync(string hostValue);
     }
 }

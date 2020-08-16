@@ -1,13 +1,12 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Nekrasov.Demo.Application.Services.Abstraction;
+using Nekrasov.Demo.Dto.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Nekrasov.Demo.Application.Services;
-using Nekrasov.Demo.Application.Services.Abstraction;
-using Nekrasov.Demo.Dto.ViewModel;
 
 namespace Nekrasov.Demo.Web.Server.Controllers
 {
@@ -30,7 +29,7 @@ namespace Nekrasov.Demo.Web.Server.Controllers
             IEnumerable<FileViewModel> files = null;
             try
             {
-                files = await _fileService.GetListAsync();
+                files = await _fileService.GetListAsync(HttpContext.Request.Host.Value);
             }
             catch (Exception e)
             {
@@ -40,12 +39,12 @@ namespace Nekrasov.Demo.Web.Server.Controllers
             return files;
         }
 
-        //[HttpGet("content")]
-        //public async Task<IEnumerable<FileViewModel>> GetFile()
-        //{
-        //    await Task.CompletedTask;
-        //    return null;
-        //}
+        [HttpGet("content/{videoId}")]
+        public async Task<FileContentResult> GetFile(string videoId, [FromServices] IContentService contentService)
+        {
+            var (content, contentType) = await contentService.ReadVideoAsync(videoId);
+            return File(content, contentType);
+        }
 
 
         [HttpPost]
